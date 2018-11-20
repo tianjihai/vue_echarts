@@ -16,7 +16,3 @@ export default new Router({
 })
 
 
-var s=1;
-function  a() {
-  if(s){return asd;}else{return aa;}
-}
