@@ -12,4 +12,11 @@ export default new Router({
       component: HelloWorld
     }
   ]
+
 })
+
+
+var s=1;
+function  a() {
+  if(s){return asd;}else{return aa;}
+}
