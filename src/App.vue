@@ -1,6 +1,8 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
+
+    <!--路由跳转后页面的呈现部分-->
     <router-view/>
   </div>
 </template>
@@ -14,7 +16,7 @@ export default {
 
 <style>
 #app {
-  border: 1px solid red;
+  border: 1px solid dodgerblue;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

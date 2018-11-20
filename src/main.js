@@ -3,13 +3,14 @@
 import Vue from 'vue'
 import Demo from './App'
 import router from './router'
-import echarts from 'echarts'
+import echarts from 'echarts' 
+import 'jquery/src/jquery.js'
 import  'echarts/lib/chart/map';
 import 'echarts/map/js/china.js';
 
-Vue.prototype.$echarts = echarts
+Vue.prototype.$echarts = echarts;
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
@@ -17,3 +18,6 @@ new Vue({
   router,
   components: { Demo66:Demo }
 })
+
+
+
