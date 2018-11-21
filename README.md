@@ -2,6 +2,10 @@
 
 > A Vue.js project
 > vue-cli + webpack + eCharts + sass
+> npm install swiper  swiper滑动样式插件
+> npm install jquery
+> npm install eCharts
+> npm install Element-ui
 
 ## Build Setup
 

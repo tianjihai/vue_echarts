@@ -5,11 +5,14 @@ import Demo from './App'
 import router from './router'
 import echarts from 'echarts'
 import axios from 'axios'
+import $ from 'jquery'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import 'jquery/src/jquery.js'
 import  'echarts/lib/chart/map';
 import 'echarts/map/js/china.js';
+import Swiper from 'swiper';
+import 'swiper/dist/css/swiper.min.css';
 
 Vue.prototype.$echarts = echarts;
 Vue.prototype.$axios = axios;

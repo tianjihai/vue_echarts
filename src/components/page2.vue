@@ -24,34 +24,79 @@
     <el-button @click="goBack">回到初始页</el-button>
     <h1>This is page 2!</h1>
     <div id="myChart" :style="{width: '600px', height: '400px'}"></div>
+
+
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div style="height: 30px;background: lightcyan;"></div>
+        </div>
+        <div class="swiper-slide">
+          <div style="height: 30px;background: lightblue;"></div>
+        </div>
+        <div class="swiper-slide">
+          <div style="height: 30px;background: lightgreen;"></div>
+        </div>
+      </div>
+    </div>
+
+
   </div>
 </template>
 
 <script>
+  import Swiper from 'swiper';
+  import 'swiper/dist/css/swiper.min.css';
+
   export default {
     name: "page2",
     mounted() {
       this.drawLine();
+      let mySwiper = new Swiper('.swiper-container', {});
     },
     methods: {
       goBack() {
         this.$router.push('/')
       },
       drawLine() {
+        let aqi = [];
+        let date = [];
+        $.ajax({
+          type: 'GET',
+          async: false,
+          url: 'http://t.weather.sojson.com/api/weather/city/101030100',
+          dataType: 'json',
+          success: function (res) {
+            console.log(res);
+            let aqiArray = [];
+            let dateArray = [];
+            for (let i = 0; i < res.data.forecast.length; i++) {
+              aqiArray.push(res.data.forecast[i].aqi);
+              dateArray.push(res.data.forecast[i].date);
+            }
+            aqi = aqiArray;
+            date = dateArray;
+          }
+        });
+
+        console.log(aqi);
+        console.log(date);
+
         // 基于准备好的dom，初始化echarts实例
-        let myChart = this.$echarts.init(document.getElementById('myChart'))
+        let myChart = this.$echarts.init(document.getElementById('myChart'));
         // 绘制图表
         myChart.setOption({
-          title: {text: '在Vue中使用echarts'},
+
+          title: {text: '空气质量AQI'},
           tooltip: {},
           xAxis: {
-            data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+            data: date
           },
           yAxis: {},
           series: [{
-            name: '销量',
+            name: '空气质量AQI',
             type: 'line',
-            data: [5, 20, 36, 10, 10, 20]
+            data: aqi
           }]
         });
       },

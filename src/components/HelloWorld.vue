@@ -1,5 +1,11 @@
 <template>
   <div class="hello">
+    <el-card class="box-card">
+      <div v-for="o in 4" :key="o" class="text item">
+        {{'列表内容 ' + o }}
+      </div>
+    </el-card>
+
     <el-button @click="goPage2">跳转到图表页面</el-button>
     <el-button @click="goPage3">跳转到空气质量图页面</el-button>
     <el-button @click="send">vue axios请求</el-button>
@@ -32,7 +38,7 @@
       send(){
         this.$axios({
           method:'get',
-          url:'http://v.juhe.cn/weather/index?format=2&cityname=%E8%8B%8F%E5%B7%9E&key=f1c72f268b0dabd0cbee2dd4011b674f'
+          url:'http://t.weather.sojson.com/api/weather/city/101030100'
         }).then(function(resp){
           console.log(resp.data);
         }).catch(resp => {
@@ -63,7 +69,20 @@
     color: #42b983;
   }
 
+  .text {
+    font-size: 14px;
+  }
+
+  .item {
+    padding: 18px 0;
+  }
+
+  .box-card {
+    width: 480px;
+    border-radius: 10px 10px 10px 10px;
+  }
 </style>
+
 
 <!--use scss-->
 <style lang="scss">
