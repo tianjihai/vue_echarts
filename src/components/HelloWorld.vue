@@ -3,6 +3,7 @@
 
     <el-button @click="goPage2">跳转到图表页面</el-button>
     <el-button @click="goPage3">跳转到空气质量图页面</el-button>
+    <el-button @click="CityWeather">查看天气预报</el-button>
     <el-button @click="send">vue axios请求</el-button>
     <h1>{{ msg }}</h1>
     <h2>vue-cli</h2>
@@ -29,6 +30,9 @@
       },
       goPage3(){
         this.$router.push('/page3')
+      },
+      CityWeather(){
+        this.$router.push('/cityweather')
       },
       send(){
         this.$axios({

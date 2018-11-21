@@ -1,52 +1,40 @@
 <template>
   <div>
-    <el-button
-      plain
-      @click="open3">
-      成功
-    </el-button>
-    <el-button
-      plain
-      @click="open4">
-      警告
-    </el-button>
-    <el-button
-      plain
-      @click="open5">
-      消息
-    </el-button>
-    <el-button
-      plain
-      @click="open6">
-      错误
-    </el-button>
+    <img src="../assets/bg-weather.jpg" alt="">
+
+    <el-row class="demo-autocomplete">
+      <el-col :span="12">
+        <div class="sub-title">激活即列出输入建议</div>
+        <el-autocomplete
+          class="inline-input"
+          v-model="state1"
+          :fetch-suggestions="querySearch"
+          placeholder="请输入内容"
+          @select="handleSelect"
+        ></el-autocomplete>
+      </el-col>
+      <el-col :span="12">
+        <div class="sub-title">输入后匹配输入建议</div>
+        <el-autocomplete
+          class="inline-input"
+          v-model="state2"
+          :fetch-suggestions="querySearch"
+          placeholder="请输入内容"
+          :trigger-on-focus="false"
+          @select="handleSelect"
+        ></el-autocomplete>
+      </el-col>
+    </el-row>
 
     <el-button @click="goBack">回到初始页</el-button>
-    <h1>This is page 2!</h1>
+    <h1>城市天气预报</h1>
+
 
     <el-card class="box-card card">
-      <div class="swiper-container card-container">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div id="slide1">
-              第一页
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div id="slide2">
-              第二页
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div id="slide3">
-              第三页
-            </div>
-          </div>
-        </div>
-      </div>
+
+      <div id="myChart" :style="{width: '1000px', height: '400px'}"></div>
     </el-card>
 
-    <div id="myChart" :style="{width: '1000px', height: '400px'}"></div>
 
 
     <div>
@@ -89,12 +77,17 @@
     return CryptoJS.enc.Utf8.stringify(decrypt).toString();
   }
 
-
-
-
   export default {
+    data() {
+      return {
+        restaurants: [],
+        state1: '',
+        state2: ''
+      };
+    },
     name: "page2",
     mounted() {
+      this.restaurants = this.loadAll();
       this.drawLine();
       let mySwiper = new Swiper('.swiper-container', {});
     },
@@ -112,7 +105,6 @@
       goBack() {
         this.$router.push('/')
       },
-
 
       drawLine() {
         let aqi = [];
@@ -156,40 +148,45 @@
           }]
         });
       },
-      open3() {
-        this.$notify({
-          title: '成功',
-          message: '这是一条成功的提示消息',
-          type: 'success'
-        });
-      },
 
-      open4() {
-        this.$notify({
-          title: '警告',
-          message: '这是一条警告的提示消息',
-          type: 'warning'
-        });
+      querySearch(queryString, cb) {
+        var restaurants = this.restaurants;
+        var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+        // 调用 callback 返回建议列表的数据
+        cb(results);
       },
-
-      open5() {
-        this.$notify.info({
-          title: '消息',
-          message: '这是一条消息的提示消息'
-        });
+      createFilter(queryString) {
+        return (restaurant) => {
+          return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+        };
       },
-
-      open6() {
-        this.$notify.error({
-          title: '错误',
-          message: '这是一条错误的提示消息'
-        });
+      loadAll() {
+        return [
+          { "value": "北京市"},
+          { "value": "天津市"},
+          { "value": "大连市"},
+          { "value": "沈阳市"},
+          { "value": "吉林市"},
+          { "value": "霸州市"},
+          { "value": "廊坊市"},
+          { "value": "台北市"},
+        ];
+      },
+      handleSelect(item) {
+        console.log(item);
       }
     }
   }
 </script>
 
 <style scoped>
+  img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1999;
+    width: 100%;
+  }
   h1 {
     font-size: 20px;
     color: lightblue;
@@ -199,33 +196,12 @@
     margin: 40px auto;
 
   }
-
-  #slide1, #slide2, #slide3 {
-    margin: 0 auto;
-    width: 700px;
-    height: 100px;
-    border-radius: 20px 20px 20px 20px;
+  .cityname{
+    width: 180px;
   }
-
-  #slide1 {
-    background: lightcyan;
-  }
-
-  #slide2 {
-    background: lightcoral;
-  }
-
-  #slide3 {
-    background: lightgreen;
-  }
-
   .card {
-    width: 800px;
+    width: 1000px;
     margin: 0 auto;
-  }
-
-  .card-container {
-    width: 700px;
   }
 
 </style>
