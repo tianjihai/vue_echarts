@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="goBack">回到初始页</button>
+    <el-button @click="goBack">回到初始页</el-button>
     <h1>This is page 3!</h1>
     <div id="echart2" :style="{width: '1600px', height: '900px'}"></div>
   </div>

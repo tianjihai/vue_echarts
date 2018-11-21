@@ -3,12 +3,18 @@
 import Vue from 'vue'
 import Demo from './App'
 import router from './router'
-import echarts from 'echarts' 
+import echarts from 'echarts'
+import axios from 'axios'
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 import 'jquery/src/jquery.js'
 import  'echarts/lib/chart/map';
 import 'echarts/map/js/china.js';
 
 Vue.prototype.$echarts = echarts;
+Vue.prototype.$axios = axios;
+
+Vue.use(ElementUI);
 
 Vue.config.productionTip = false;
 
@@ -17,7 +23,7 @@ new Vue({
   el: '#app',
   router,
   components: { Demo66:Demo }
-})
+});
 
 
 

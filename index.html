@@ -8,6 +8,12 @@
   <body>
     <div id="app">
       <Demo66/>
+      <div style="margin-top: 40px;">
+        <el-button @click="visible = true">Button</el-button>
+        <el-dialog :visible.sync="visible" title="Hello world">
+          <p>Try Element</p>
+        </el-dialog>
+      </div>
     </div>
     <!-- built files will be auto injected -->
   </body>
