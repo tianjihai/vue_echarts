@@ -1,16 +1,11 @@
 <template>
   <div class="hello">
-    <el-card class="box-card">
-      <div v-for="o in 4" :key="o" class="text item">
-        {{'列表内容 ' + o }}
-      </div>
-    </el-card>
 
     <el-button @click="goPage2">跳转到图表页面</el-button>
     <el-button @click="goPage3">跳转到空气质量图页面</el-button>
     <el-button @click="send">vue axios请求</el-button>
     <h1>{{ msg }}</h1>
-    <h2>图表使用echarts</h2>
+    <h2>vue-cli</h2>
 
 
   </div>

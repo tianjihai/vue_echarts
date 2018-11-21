@@ -23,22 +23,30 @@
 
     <el-button @click="goBack">回到初始页</el-button>
     <h1>This is page 2!</h1>
-    <div id="myChart" :style="{width: '600px', height: '400px'}"></div>
 
-
-    <div class="swiper-container">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <div style="height: 30px;background: lightcyan;"></div>
-        </div>
-        <div class="swiper-slide">
-          <div style="height: 30px;background: lightblue;"></div>
-        </div>
-        <div class="swiper-slide">
-          <div style="height: 30px;background: lightgreen;"></div>
+    <el-card class="box-card card">
+      <div class="swiper-container card-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div id="slide1">
+              第一页
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div id="slide2">
+              第二页
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div id="slide3">
+              第三页
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </el-card>
+
+    <div id="myChart" :style="{width: '1000px', height: '400px'}"></div>
 
 
   </div>
@@ -140,9 +148,35 @@
   }
 
   #myChart {
-    border: 1px solid red;
     margin: 40px auto;
 
   }
+
+  #slide1, #slide2, #slide3 {
+    margin: 0 auto;
+    width: 700px;
+    height: 100px;
+    border-radius: 20px 20px 20px 20px;
+  }
+
+  #slide1 {
+    background: lightcyan;
+  }
+
+  #slide2 {
+    background: lightcoral;
+  }
+
+  #slide3 {
+    background: lightgreen;
+  }
+
+  .card{
+    width: 800px;margin: 0 auto;
+  }
+  .card-container{
+    width: 700px;
+  }
+
 </style>
 

@@ -2,7 +2,7 @@
   <div>
     <el-button @click="goBack">回到初始页</el-button>
     <h1>This is page 3!</h1>
-    <div id="echart2" :style="{width: '1600px', height: '900px'}"></div>
+    <div id="echart2" :style="{width: '1100px', height: '600px'}"></div>
   </div>
 </template>
 
@@ -551,8 +551,7 @@
   }
 
   #echart2{
-    border: 1px solid red;
-    margin: 40px auto;
+    margin: 20px auto;
 
   }
 </style>
