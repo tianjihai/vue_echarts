@@ -18,11 +18,10 @@
       <img id="sunImg" src="../assets/sun.png" alt="">
 
 
-
     </el-card>
 
     <div style="float: left;width: 100%;margin: 0 auto;margin: 20px;">
-      <el-col >
+      <el-col>
         <el-autocomplete
           style="width: 300px;"
           class="inline-input"
@@ -40,15 +39,13 @@
     <div style="margin-top: 300px;">
 
 
-
-      <!--<el-button @click="goPage2">跳转到图表页面</el-button>-->
-      <!--<el-button @click="goPage3">跳转到空气质量图页面</el-button>-->
+      <el-button @click="goPage2">近五天的天气情况</el-button>
+      <el-button @click="goPage3">全国空气质量监控</el-button>
       <!--<el-button @click="CityWeather">查看天气预报</el-button>-->
       <!--<el-button @click="showPosition">获取定位</el-button>-->
 
       <!--<h1>{{ msg }} {{state2}}</h1>-->
       <!--<h2>vue-cli</h2>-->
-
 
     </div>
 
@@ -65,8 +62,6 @@
 
   /**
    * 加密（需要先加载lib/aes/aes.min.js文件）
-   * @param word
-   * @returns {*}
    */
   function encrypt(word) {
     var key = CryptoJS.enc.Utf8.parse("6145986487626488");
@@ -77,8 +72,6 @@
 
   /**
    * 解密
-   * @param word
-   * @returns {*}
    */
   function decrypt(word) {
     var key = CryptoJS.enc.Utf8.parse("6145986487626488");
@@ -97,7 +90,7 @@
         ct: 'aaa',
         restaurants: [],
         state2: '',
-        cityname:[
+        cityname: [
           {"value": "北京"},
           {"value": "天津"},
           {"value": "大连"},
@@ -109,7 +102,7 @@
           {"value": "上海"},
           {"value": "香港"},
           {"value": "澳门"},
-          {"value": "黑龙江"},
+          {"value": "哈尔滨"},
           {"value": "南京"},
           {"value": "杭州"},
           {"value": "长沙"},
@@ -120,8 +113,7 @@
 
     mounted() {
       this.restaurants = this.loadAll();
-      this.send2()
-
+      this.send2();
     },
     methods: {
       jiami() {
@@ -134,12 +126,8 @@
         let dd2 = decrypt(this.d2)
         console.log(dd2);
       },
-      haha(){
-        let ss=$("#csm").text();
-        console.log(typeof ss);
-      },
+
       showPosition() {
-        this.haha();
 
         let nvaga = navigator.geolocation;
         nvaga.getCurrentPosition(updatPos, errorLoca);
@@ -207,7 +195,7 @@
         $.ajax({
           type: 'GET',
           async: false,
-          url: 'http://47.93.193.61:8080/getWeatherByName?appId='+appid+'&sign='+sign+'&cityname='+city+'&dtype=json&format=1',
+          //url: 'http://47.93.193.61:8080/getWeatherByName?appId=' + appid + '&sign=' + sign + '&cityname=' + city + '&dtype=json&format=1',
           dataType: 'json',
           success: function (res) {
             console.log(res);
@@ -234,7 +222,7 @@
             $("#advice").append(jianYi);
 
           },
-          error:function () {
+          error: function () {
 
           }
         });
@@ -253,10 +241,10 @@
         $.ajax({
           type: 'GET',
           async: false,
-          url: 'http://47.93.193.61:8080/getWeatherByName?appId='+appid+'&sign='+sign+'&cityname='+city+'&dtype=json&format=1',
+          //url: 'http://47.93.193.61:8080/getWeatherByName?appId=' + appid + '&sign=' + sign + '&cityname=' + city + '&dtype=json&format=1',
           dataType: 'json',
           success: function (res) {
-            //console.log(res);
+            //console.log(res.result.future);
 
             let chengShi = res.result.today.city;
             let shiJian = res.result.sk.time;
@@ -282,7 +270,7 @@
           }
         });
       },
-      getCity(){
+      getCity() {
         $.ajax({
           type: 'GET',
           async: false,
@@ -290,11 +278,10 @@
           dataType: 'json',
           success: function (res) {
 
-            for(let j=0;j<res.result.length;j++){
+            for (let j = 0; j < res.result.length; j++) {
 
             }
 
-            console.log(res.result.length);
           }
         });
       },
@@ -324,6 +311,10 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  #tianqi {
+    margin: 40px auto;
+
+  }
   .hello {
     width: 100%;
   }
@@ -366,10 +357,23 @@
 
   #sunImg {
     z-index: 11111;
-    width: 150px;
-    left: 75%;
-    margin-top: 100px;
+    width: 160px;
+    left: 80%;
+    margin-top: 130px;
     margin-left: -80px;
+    animation:big 2s infinite;
+  }
+
+  @keyframes big
+  {
+    0% {width:140px;}
+    50% {
+      width:160px;
+      left: 80%;
+      margin-top: 120px;
+      margin-left: -80px;
+    }
+    100% {width:140px;}
   }
 
   .tgwd {

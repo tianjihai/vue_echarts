@@ -1,8 +1,7 @@
 <template>
   <div>
-    <el-button @click="goBack">回到初始页</el-button>
-    <h1>This is page 3!</h1>
     <div id="echart2" :style="{width: '1400px', height: '800px'}"></div>
+    <el-button @click="goBack">回到初始页</el-button>
   </div>
 </template>
 

@@ -1,61 +1,54 @@
 <template>
   <div>
-    <el-button
-      plain
-      @click="open3">
-      成功
-    </el-button>
-    <el-button
-      plain
-      @click="open4">
-      警告
-    </el-button>
-    <el-button
-      plain
-      @click="open5">
-      消息
-    </el-button>
-    <el-button
-      plain
-      @click="open6">
-      错误
-    </el-button>
+    <!--<el-button-->
+      <!--plain-->
+      <!--@click="open3">-->
+      <!--成功-->
+    <!--</el-button>-->
+    <!--<el-button-->
+      <!--plain-->
+      <!--@click="open4">-->
+      <!--警告-->
+    <!--</el-button>-->
+    <!--<el-button-->
+      <!--plain-->
+      <!--@click="open5">-->
+      <!--消息-->
+    <!--</el-button>-->
+    <!--<el-button-->
+      <!--plain-->
+      <!--@click="open6">-->
+      <!--错误-->
+    <!--</el-button>-->
 
     <el-button @click="goBack">回到初始页</el-button>
-    <h1>This is page 2!</h1>
+    <!--<h1>This is page 2!</h1>-->
 
-    <el-card class="box-card card">
-      <div class="swiper-container card-container">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div id="slide1">
-              第一页
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div id="slide2">
-              第二页
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div id="slide3">
-              第三页
-            </div>
-          </div>
-        </div>
-      </div>
-    </el-card>
+    <!--<el-card class="box-card card">-->
+      <!--<div class="swiper-container card-container">-->
+        <!--<div class="swiper-wrapper">-->
+          <!--<div class="swiper-slide">-->
+            <!--<div id="slide1">-->
+              <!--第一页-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="swiper-slide">-->
+            <!--<div id="slide2">-->
+              <!--第二页-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="swiper-slide">-->
+            <!--<div id="slide3">-->
+              <!--第三页-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</el-card>-->
 
     <div id="myChart" :style="{width: '1000px', height: '400px'}"></div>
+    <div id="myChart2" :style="{width: '1000px', height: '400px'}"></div>
 
-
-    <div>
-      要加密的数据： <el-input v-model="d1" ></el-input>
-      要解密的数据： <el-input v-model="d2" ></el-input>
-      <el-button type="primary" @click="jiami" plain>加密</el-button>
-      <el-button type="primary" @click="jiemi" plain>解密</el-button>
-
-    </div>
   </div>
 </template>
 
@@ -67,9 +60,7 @@
   import 'aes-js/index'
 
   /**
-   * 加密（需要先加载lib/aes/aes.min.js文件）
-   * @param word
-   * @returns {*}
+   * 加密（需要先加载lib/aes/aes.min.js文件） 
    */
   function encrypt(word){
     var key = CryptoJS.enc.Utf8.parse("6145986487626488");
@@ -80,8 +71,6 @@
 
   /**
    * 解密
-   * @param word
-   * @returns {*}
    */
   function decrypt(word){
     var key = CryptoJS.enc.Utf8.parse("6145986487626488");
@@ -117,6 +106,8 @@
       drawLine() {
         let aqi = [];
         let date = [];
+        let high = [];
+        let low = [];
         $.ajax({
           type: 'GET',
           async: false,
@@ -126,24 +117,33 @@
             console.log(res);
             let aqiArray = [];
             let dateArray = [];
+            let highTemp = [];
+            let lowTemp = [];
+
             for (let i = 0; i < res.data.forecast.length; i++) {
               aqiArray.push(res.data.forecast[i].aqi);
               dateArray.push(res.data.forecast[i].date);
+              highTemp.push(parseInt(res.data.forecast[i].high.substring(1).substring(1).substring(1)));
+              lowTemp.push(parseInt(res.data.forecast[i].low.substring(1).substring(1).substring(1)));
             }
             aqi = aqiArray;
             date = dateArray;
+            high = highTemp;
+            low = lowTemp;
           }
         });
 
         console.log(aqi);
         console.log(date);
+        console.log(high);
+        console.log(low);
 
         // 基于准备好的dom，初始化echarts实例
         let myChart = this.$echarts.init(document.getElementById('myChart'));
         // 绘制图表
         myChart.setOption({
 
-          title: {text: '空气质量AQI'},
+          title: {text: '近五天的空气质量AQI'},
           tooltip: {},
           xAxis: {
             data: date
@@ -155,6 +155,56 @@
             data: aqi
           }]
         });
+
+
+        // 基于准备好的dom，初始化echarts实例
+        let myChart2 = this.$echarts.init(document.getElementById('myChart2'));
+        // 绘制图表
+        myChart2.setOption({
+
+          title: {
+            text: '近五天天气情况'
+          },
+          tooltip: {
+            trigger: 'axis'
+          },
+          legend: {
+            data:['最高气温','最低气温']
+          },
+          grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+          },
+          toolbox: {
+            feature: {
+              saveAsImage: {}
+            }
+          },
+          xAxis: {
+            data: date
+          },
+          yAxis: {
+            type: 'value'
+          },
+          series: [
+            {
+              name:'最高气温',
+              type:'line',
+              stack: '总量',
+              data: high
+            },
+            {
+              name:'最低气温',
+              type:'line',
+              stack: '总量',
+              data: low
+            }
+          ]
+        });
+
+
       },
       open3() {
         this.$notify({
@@ -196,6 +246,10 @@
   }
 
   #myChart {
+    margin: 40px auto;
+
+  }
+  #myChart2 {
     margin: 40px auto;
 
   }
