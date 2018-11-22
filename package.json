@@ -15,6 +15,7 @@
     "crypto-js": "^3.1.9-1",
     "echarts": "^4.2.0-rc.2",
     "element-ui": "^2.4.10",
+    "particlesjs": "^2.2.3",
     "swiper": "^4.4.2",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
@@ -59,6 +60,7 @@
     "uglifyjs-webpack-plugin": "^1.1.1",
     "url-loader": "^0.5.8",
     "vue-loader": "^13.3.0",
+    "vue-particles": "^1.0.9",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.5.2",
     "webpack": "^3.6.0",
