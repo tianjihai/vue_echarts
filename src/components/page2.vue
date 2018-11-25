@@ -60,7 +60,7 @@
   import 'aes-js/index'
 
   /**
-   * 加密（需要先加载lib/aes/aes.min.js文件） 
+   * 加密（需要先加载lib/aes/aes.min.js文件）
    */
   function encrypt(word){
     var key = CryptoJS.enc.Utf8.parse("6145986487626488");
@@ -171,22 +171,10 @@
           legend: {
             data:['最高气温','最低气温']
           },
-          grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-          },
-          toolbox: {
-            feature: {
-              saveAsImage: {}
-            }
-          },
           xAxis: {
             data: date
           },
           yAxis: {
-            type: 'value'
           },
           series: [
             {

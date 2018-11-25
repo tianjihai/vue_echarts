@@ -195,7 +195,7 @@
         $.ajax({
           type: 'GET',
           async: false,
-          //url: 'http://47.93.193.61:8080/getWeatherByName?appId=' + appid + '&sign=' + sign + '&cityname=' + city + '&dtype=json&format=1',
+          url: '/api/getWeatherByName?appId=' + appid + '&sign=' + sign + '&cityname=' + city + '&dtype=json&format=1',
           dataType: 'json',
           success: function (res) {
             console.log(res);
@@ -241,7 +241,7 @@
         $.ajax({
           type: 'GET',
           async: false,
-          //url: 'http://47.93.193.61:8080/getWeatherByName?appId=' + appid + '&sign=' + sign + '&cityname=' + city + '&dtype=json&format=1',
+          url: '/api/getWeatherByName?appId=' + appid + '&sign=' + sign + '&cityname=' + city + '&dtype=json&format=1',
           dataType: 'json',
           success: function (res) {
             //console.log(res.result.future);
