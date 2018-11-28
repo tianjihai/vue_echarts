@@ -229,8 +229,8 @@
       },
       send2() {
 
-        let appid = "";
-        let cs = "北京"
+        let appid = '';
+        let cs = '北京';
         for (let i = 0; i < 6; i++) {
           appid += Math.floor(Math.random() * 10);
         }
