@@ -12,7 +12,7 @@
         湿度： <span id="wet"></span> <br/>
         今日气温：<span id="todaytemp"></span> <br/>
         紫外线强度：<span id="uv"></span><br/><br/>
-        <b style="font-size: 16px;">海海提醒您：<span id="advice"></span></b>
+        <b style="font-size: 16px;">提醒您：<span id="advice"></span></b>
       </div>
 
       <img id="sunImg" src="../assets/sun.png" alt="">
@@ -64,7 +64,7 @@
    * 加密（需要先加载lib/aes/aes.min.js文件）
    */
   function encrypt(word) {
-    var key = CryptoJS.enc.Utf8.parse("6145986487626488");
+      var key = CryptoJS.enc.Utf8.parse("6145986487626488");
     var srcs = CryptoJS.enc.Utf8.parse(word);
     var encrypted = CryptoJS.AES.encrypt(srcs, key, {mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7});
     return encrypted.toString();
@@ -195,11 +195,10 @@
         $.ajax({
           type: 'GET',
           async: false,
-          url: '/api/getWeatherByName?appId=' + appid + '&sign=' + sign + '&cityname=' + city + '&dtype=json&format=1',
+          url: 'http://47.93.193.61:8080/getWeatherByName?appId=' + appid + '&sign=' + sign + '&cityname=' + city + '&dtype=json&format=1',
           dataType: 'json',
           success: function (res) {
             console.log(res);
-
 
             let chengShi = res.result.today.city;
             let shiJian = res.result.sk.time;
@@ -238,37 +237,69 @@
         let sign = encodeURIComponent(encrypt(appid));
         let city = encodeURIComponent(encodeURIComponent(cs));
 
-        $.ajax({
-          type: 'GET',
-          async: false,
-          url: '/api/getWeatherByName?appId=' + appid + '&sign=' + sign + '&cityname=' + city + '&dtype=json&format=1',
-          dataType: 'json',
-          success: function (res) {
-            //console.log(res.result.future);
 
-            let chengShi = res.result.today.city;
-            let shiJian = res.result.sk.time;
-            let wenDu = res.result.sk.temp;
-            let fengXiang = res.result.sk.wind_direction;
-            let fengJi = res.result.sk.wind_strength;
-            let shiDu = res.result.sk.humidity;
-            let jinRiTemp = res.result.today.temperature;
-            let ziWaiXian = res.result.today.uv_index;
-            let jianYi = res.result.today.dressing_advice;
+        this.axios({
+          url: 'http://47.93.193.61:8080/getWeatherByName?appId=' + appid + '&sign=' + sign + '&cityname=' + city + '&dtype=json&format=1',
+          method: 'get',
+          responseType: 'json',
+        }).then(function (res) {
+          console.log(res.data.result);
+              let chengShi = res.data.result.today.city;
+              let shiJian = res.data.result.sk.time;
+              let wenDu = res.data.result.sk.temp;
+              let fengXiang = res.data.result.sk.wind_direction;
+              let fengJi = res.data.result.sk.wind_strength;
+              let shiDu = res.data.result.sk.humidity;
+              let jinRiTemp = res.data.result.today.temperature;
+              let ziWaiXian = res.data.result.today.uv_index;
+              let jianYi = res.data.result.today.dressing_advice;
 
-            $("#city").append(chengShi);
-            $("#time").append(shiJian);
-            $("#temp").append(wenDu);
-            $("#wind").append(fengXiang);
-            $("#windlv").append(fengJi);
-            $("#wet").append(shiDu);
-            $("#todaytemp").append(jinRiTemp);
-            $("#uv").append(ziWaiXian);
-            $("#advice").append(jianYi);
+              $("#city").append(chengShi);
+              $("#time").append(shiJian);
+              $("#temp").append(wenDu);
+              $("#wind").append(fengXiang);
+              $("#windlv").append(fengJi);
+              $("#wet").append(shiDu);
+              $("#todaytemp").append(jinRiTemp);
+              $("#uv").append(ziWaiXian);
+              $("#advice").append(jianYi);
 
 
-          }
+        }).catch(function (error) {
+          console.log(error);
         });
+
+        // $.ajax({
+        //   type: 'GET',
+        //   async: false,
+        //   url: 'http://47.93.193.61:8080/getWeatherByName?appId=' + appid + '&sign=' + sign + '&cityname=' + city + '&dtype=json&format=1',
+        //   dataType: 'json',
+        //   success: function (res) {
+        //     //console.log(res.result.future);
+        //
+        //     let chengShi = res.result.today.city;
+        //     let shiJian = res.result.sk.time;
+        //     let wenDu = res.result.sk.temp;
+        //     let fengXiang = res.result.sk.wind_direction;
+        //     let fengJi = res.result.sk.wind_strength;
+        //     let shiDu = res.result.sk.humidity;
+        //     let jinRiTemp = res.result.today.temperature;
+        //     let ziWaiXian = res.result.today.uv_index;
+        //     let jianYi = res.result.today.dressing_advice;
+        //
+        //     $("#city").append(chengShi);
+        //     $("#time").append(shiJian);
+        //     $("#temp").append(wenDu);
+        //     $("#wind").append(fengXiang);
+        //     $("#windlv").append(fengJi);
+        //     $("#wet").append(shiDu);
+        //     $("#todaytemp").append(jinRiTemp);
+        //     $("#uv").append(ziWaiXian);
+        //     $("#advice").append(jianYi);
+        //
+        //
+        //   }
+        // });
       },
       getCity() {
         $.ajax({
@@ -315,6 +346,7 @@
     margin: 40px auto;
 
   }
+
   .hello {
     width: 100%;
   }
@@ -361,19 +393,22 @@
     left: 80%;
     margin-top: 130px;
     margin-left: -80px;
-    animation:big 2s infinite;
+    animation: big 2s infinite;
   }
 
-  @keyframes big
-  {
-    0% {width:140px;}
+  @keyframes big {
+    0% {
+      width: 140px;
+    }
     50% {
-      width:160px;
+      width: 160px;
       left: 80%;
       margin-top: 120px;
       margin-left: -80px;
     }
-    100% {width:140px;}
+    100% {
+      width: 140px;
+    }
   }
 
   .tgwd {
@@ -394,6 +429,7 @@
   div {
     h2 {
       color: lightblue;
+
       &:hover {
         color: red;
         transition: color 1s;

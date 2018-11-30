@@ -16,7 +16,7 @@ import VueParticles from 'vue-particles'
 Vue.use(VueParticles)
 
 Vue.prototype.$echarts = echarts;
-Vue.prototype.$axios = axios;
+Vue.prototype.axios = axios;
 
 Vue.use(ElementUI);
 

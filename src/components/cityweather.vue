@@ -117,7 +117,7 @@
           dataType: 'json',
           success: function (res) {
             console.log(res);
-            let aqiArray = [];
+                let aqiArray = [];
             let dateArray = [];
             for (let i = 0; i < res.data.forecast.length; i++) {
               aqiArray.push(res.data.forecast[i].aqi);
