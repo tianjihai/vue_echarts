@@ -26,7 +26,7 @@ Vue.config.productionTip = false;
 new Vue({
   el: '#app',
   router,
-  components: { Demo66:Demo }
+	components: { Demo66:Demo }
 });
 
 

@@ -20,7 +20,7 @@
       drawMap() {
         let myChart2 = this.$echarts.init(document.getElementById('echart2'));
         let geoCoordMap = {
-          "海门": [121.15, 31.89],
+          "海门": [121.11, 31.89],
           "鄂尔多斯": [109.781327, 39.608266],
           "招远": [120.38, 37.35],
           "舟山": [122.207216, 29.985295],
