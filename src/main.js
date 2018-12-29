@@ -16,9 +16,10 @@ import VueParticles from 'vue-particles'
 Vue.use(VueParticles)
 
 Vue.prototype.$echarts = echarts;
-Vue.prototype.axios = axios;
+Vue.prototype.$axios = axios;
 
-Vue.use(ElementUI);
+Vue.use(ElementUI)
+
 
 Vue.config.productionTip = false;
 
@@ -26,7 +27,7 @@ Vue.config.productionTip = false;
 new Vue({
   el: '#app',
   router,
-	components: { Demo66:Demo }
+  components: { Demo66:Demo }
 });
 
 

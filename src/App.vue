@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
     <!--<img src="./assets/logo.png">-->
     <img src="./assets/bg-weather.jpg" alt="">
     <vue-particles
@@ -47,6 +47,7 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
+    width: 98%;
   }
 
   img {

@@ -1,0 +1,108 @@
+/**
+ * Created by
+ * @Auther: tianjihai
+ * @Date: 2018-12-26 18:48
+ */
+
+#tianqi {
+  margin: 40px auto;
+
+}
+
+.hello {
+  width: 100%;
+}
+
+h1, h2 {
+  font-weight: normal;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+a {
+  color: #42b983;
+}
+
+.tempInfo {
+  color: gray;
+  padding: 40px;
+  text-align: left;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin: 140px -500px;
+  border: 0;
+  box-shadow: 0 0 30px lightgray;
+  width: 1000px;
+  border-radius: 20px 20px 20px 20px;
+}
+
+.info {
+  font-size: 14px;
+}
+
+#sunImg {
+  z-index: 11111;
+  width: 160px;
+  left: 80%;
+  margin-top: 130px;
+  margin-left: -80px;
+  animation: big 2s infinite;
+}
+
+@keyframes big {
+  0% {
+    width: 140px;
+  }
+  50% {
+    width: 160px;
+    left: 80%;
+    margin-top: 120px;
+    margin-left: -80px;
+  }
+  100% {
+    width: 140px;
+  }
+}
+
+.tgwd {
+  margin-left: 25px;
+}
+
+.wendu {
+  font-size: 90px;
+  color: lightblue;
+  font-weight: bold;
+}
+
+div {
+  h2 {
+    color: lightblue;
+    &:hover {
+      color: red;
+      transition: color 1s;
+    }
+  }
+
+}
+
+.loginBtn{
+  color: #d2dcfa;
+  font-size: 16px;
+  right: 10%;
+  position: relative;
+}
+.topBar{
+  position: absolute;
+  top: 0;
+  width: 99.9%;
+  text-align: right;
+}

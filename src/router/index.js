@@ -1,18 +1,19 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import page2 from '@/components/page2'
-import page3 from '@/components/page3'
-import cityweather from '@/components/cityweather'
+import HomePage from '../view/index/index'
+import page2 from '../view/page2/index'
+import page3 from '../view/page3/index'
+import TestPage from '../view/test/index'
+import my from '../view/geren/index'
 
-Vue.use(Router);
+Vue.use(Router)
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'HomePage',
+      component: HomePage
     },
     {
       path: '/page2',
@@ -25,9 +26,14 @@ export default new Router({
       component: page3
     },
     {
-      path: '/cityweather',
-      name: 'cityweather',
-      component: cityweather
+      path: '/test',
+      name: 'TestPage',
+      component: TestPage
+    },
+    {
+      path: '/my',
+      name: 'my',
+      component: my
     }
   ]
 
