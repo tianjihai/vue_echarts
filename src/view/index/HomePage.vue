@@ -10,23 +10,18 @@
       :visible.sync="dialogVisible"
       width="30%">
 
-      <el-input
-        placeholder="请输入用户名"
-        v-model="username"
-        clearable>
-      </el-input>
-
-      <el-input
-        type="password"
-        placeholder="请输入密码"
-        v-model="password"
-        clearable>
-      </el-input>
-
-      <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="GRZX">登 陆</el-button>
-      </span>
+      <el-form :model="loginForm" status-icon :rules="loginRule" ref="loginForm" label-width="100px" class="demo-ruleForm">
+        <el-form-item label="用户名" prop="username">
+          <el-input  v-model="loginForm.username" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="pass">
+          <el-input type="password" v-model="loginForm.pass" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('loginForm')">提交</el-button>
+          <el-button @click="resetForm('loginForm')">重置</el-button>
+        </el-form-item>
+      </el-form>
     </el-dialog>
 
     <div class="hello">
