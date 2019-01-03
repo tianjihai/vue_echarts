@@ -157,6 +157,7 @@ export default {
     send() {
 
       let appid = '';
+      
       let cs = this.state2;
       for (let i = 0; i < 6; i++) {
         appid += Math.floor(Math.random() * 10)
