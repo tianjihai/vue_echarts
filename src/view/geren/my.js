@@ -19,7 +19,7 @@ export default {
       },
       /* 各个字段的校验规则定义 */
       rules: {
-        phone: [{required: true, message: '填手机号！', trigger: 'blur'}],
+        phone: [{required: true, message: '填手机号。！', trigger: 'blur'}],
         name: [{required: true, message: '姓名呢？！', trigger: 'blur'}],
         time: [{required: true, message: '写个时间啊!', trigger: 'blur'}],
         city: [{required: true, message: '写个地儿啊!', trigger: 'blur'}],
