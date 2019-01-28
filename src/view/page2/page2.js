@@ -15,25 +15,25 @@ import 'aes-js/index'
  * 加密（需要先加载lib/aes/aes.min.js文件）
  */
 function encrypt(word) {
-	var key = CryptoJS.enc.Utf8.parse('6145986487626488')
+  var key = CryptoJS.enc.Utf8.parse('6145986487626488')
   var srcs = CryptoJS.enc.Utf8.parse(word)
-	var encrypted = CryptoJS.AES.encrypt(srcs, key, {mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7})
-	return encrypted.toString()
+  var encrypted = CryptoJS.AES.encrypt(srcs, key, {mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7})
+  return encrypted.toString()
 }
 
 /**
  * 解密
  */
 function decrypt(word) {
-	var key = CryptoJS.enc.Utf8.parse('6145986487626488')
+  var key = CryptoJS.enc.Utf8.parse('6145986487626488')
   var decrypt = CryptoJS.AES.decrypt(word, key, {mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7})
-	return CryptoJS.enc.Utf8.stringify(decrypt).toString()
+  return CryptoJS.enc.Utf8.stringify(decrypt).toString()
 }
 
 
 export default {
-	name: 'page2',
-	mounted() {
+  name: 'page2',
+  mounted() {
     this.drawLine()
     let mySwiper = new Swiper('.swiper-container', {})
   },
@@ -107,14 +107,14 @@ export default {
       })
 
 
-			// 基于准备好的dom，初始化echarts实例
+      // 基于准备好的dom，初始化echarts实例
       let myChart2 = this.$echarts.init(document.getElementById('myChart2'))
       // 绘制图表
       myChart2.setOption({
 
         title: {
           text: '近五天天气情况'
-				},
+        },
         tooltip: {
           trigger: 'axis'
         },

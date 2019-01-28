@@ -16,10 +16,10 @@ import 'aes-js/index'
  * @returns {*}
  */
 function encrypt(word) {
-	var key = CryptoJS.enc.Utf8.parse('6145986487626488')
-	var srcs = CryptoJS.enc.Utf8.parse(word)
-	var encrypted = CryptoJS.AES.encrypt(srcs, key, {mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7})
-	return encrypted.toString()
+  var key = CryptoJS.enc.Utf8.parse('6145986487626488')
+  var srcs = CryptoJS.enc.Utf8.parse(word)
+  var encrypted = CryptoJS.AES.encrypt(srcs, key, {mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7})
+  return encrypted.toString()
 }
 
 /**
@@ -28,16 +28,16 @@ function encrypt(word) {
  * @returns {*}
  */
 function decrypt(word) {
-	var key = CryptoJS.enc.Utf8.parse('6145986487626488')
-	var decrypt = CryptoJS.AES.decrypt(word, key, {mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7})
+  var key = CryptoJS.enc.Utf8.parse('6145986487626488')
+  var decrypt = CryptoJS.AES.decrypt(word, key, {mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7})
   return CryptoJS.enc.Utf8.stringify(decrypt).toString()
 }
 
 export default {
-	data() {
-		return {
-			restaurants: [],
-			state1: '',
+  data() {
+    return {
+      restaurants: [],
+      state1: '',
       state2: ''
     }
   },

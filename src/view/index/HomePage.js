@@ -54,15 +54,6 @@ export default {
         todayTemp: '',
         uv: '',
         advice: '',
-        // let shiJian = res.data.result.sk.time;
-        // let wenDu = res.data.result.sk.temp;
-
-        // let fengXiang = res.data.result.sk.wind_direction;
-        // let fengJi = res.data.result.sk.wind_strength;
-        // let shiDu = res.data.result.sk.humidity;
-        // let jinRiTemp = res.data.result.today.temperature;
-        // let ziWaiXian = res.data.result.today.uv_index;
-        // let jianYi = res.result.data.today.dressing_advice;
       },
       username: '',
       password: '',
@@ -70,23 +61,8 @@ export default {
       ct: 'aaa',
       restaurants: [],
       state2: '',
-      cityname: [
-        {'value': '北京'},
-        {'value': '天津'},
-        {'value': '大连'},
-        {'value': '沈阳'},
-        {'value': '吉林'},
-        {'value': '霸州'},
-        {'value': '廊坊'},
-        {'value': '台北'},
-        {'value': '上海'},
-        {'value': '香港'},
-        {'value': '澳门'},
-        {'value': '哈尔滨'},
-        {'value': '南京'},
-        {'value': '杭州'},
-        {'value': '长沙'},
-      ],
+      cityname: [],
+      cityCode: '',
       dialogVisible: false,
     }
   },
@@ -94,6 +70,7 @@ export default {
   mounted() {
     this.restaurants = this.loadAll()
     this.send2()
+    this.getCity()
   },
   methods: {
     jiami() {
@@ -156,30 +133,27 @@ export default {
     },
     send() {
 
-      let appid = '';
-      
-      let cs = this.state2;
+      let appid = ''
       for (let i = 0; i < 6; i++) {
         appid += Math.floor(Math.random() * 10)
       }
-      let sign = encodeURIComponent(encrypt(appid))
-      let city = encodeURIComponent(encodeURIComponent(cs))
+      let sign = encrypt(appid);
+      //console.log(this.cityCode);
 
       this.$axios({
         method: 'get',
-        url: '/api/getWeatherByName?appId=' + appid + '&sign=' + sign + '&cityname=' + city + '&dtype=json&format=1',
+        url: 'http://47.93.193.61:8080/getWeatherById?appId='+appid+'&sign='+sign+'&cityCode='+this.cityCode
       }).then(res => {
-
-        this.info.city = res.data.result.today.city
-        this.info.time = res.data.result.sk.time
-        this.info.temp = res.data.result.sk.temp
-        this.info.windDirect = res.data.result.sk.wind_direction
-        this.info.windLevel = res.data.result.sk.wind_strength
-        this.info.wet = res.data.result.sk.humidity
-        this.info.todayTemp = res.data.result.today.temperature
-        this.info.uv = res.data.result.today.uv_index
-        this.info.advice = res.data.result.today.dressing_advice
-
+        console.log(res)
+        this.info.city = res.data.cityInfo.city
+        this.info.time = res.data.cityInfo.updateTime
+        this.info.temp = res.data.data.wendu
+        this.info.windDirect = res.data.data.forecast[0].fx
+        this.info.windLevel = res.data.data.forecast[0].fl
+        this.info.wet = res.data.data.shidu
+        this.info.todayTemp = res.data.data.forecast[0].high + res.data.data.forecast[0].low
+        this.info.uv = res.data.data.quality
+        this.info.advice = res.data.data.ganmao +'   '+ res.data.data.forecast[0].notice
       }).catch(error => {
         console.log(error)
       }).finally(() => this.loading = false)
@@ -193,29 +167,23 @@ export default {
       for (let i = 0; i < 6; i++) {
         appid += Math.floor(Math.random() * 10)
       }
-      // http://47.93.193.61:8080/getWeatherByName?appId='+appid+'&sign='+sign+'&cityname='+city+'&dtype=json&format=1
-      let sign = encodeURIComponent(encrypt(appid))
-      let city = encodeURIComponent(encodeURIComponent(cs))
-
+      let sign = encrypt(appid);
 
       //官方推荐的axios 代替传统ajax
       this.$axios({
         method: 'get',
-        url: '/api/getWeatherByName?appId=' + appid + '&sign=' + sign + '&cityname=' + city + '&dtype=json&format=1',
-        // data: {
-        //   firstName: 'Fred',
-        //   lastName: 'Flintstone'
-        // }
+        url: 'http://47.93.193.61:8080/getWeatherById?appId='+appid+'&sign='+sign+'&cityCode=101010100'
+
       }).then(res => {
-        this.info.city = res.data.result.today.city
-        this.info.time = res.data.result.sk.time
-        this.info.temp = res.data.result.sk.temp
-        this.info.windDirect = res.data.result.sk.wind_direction
-        this.info.windLevel = res.data.result.sk.wind_strength
-        this.info.wet = res.data.result.sk.humidity
-        this.info.todayTemp = res.data.result.today.temperature
-        this.info.uv = res.data.result.today.uv_index
-        this.info.advice = res.data.result.today.dressing_advice
+        this.info.city = res.data.cityInfo.city
+        this.info.time = res.data.cityInfo.updateTime
+        this.info.temp = res.data.data.wendu
+        this.info.windDirect = res.data.data.forecast[0].fx
+        this.info.windLevel = res.data.data.forecast[0].fl
+        this.info.wet = res.data.data.shidu
+        this.info.todayTemp = res.data.data.forecast[0].high + res.data.data.forecast[0].low
+        this.info.uv = res.data.data.quality
+        this.info.advice = res.data.data.ganmao +'   '+ res.data.data.forecast[0].notice
       })
         .catch(error => {
           console.log(error)
@@ -223,27 +191,35 @@ export default {
         .finally(() => this.loading = false)
     },
 
+    //通过第三方接口获取城市名push到cityname
     getCity() {
-      $.ajax({
-        type: 'GET',
-        async: false,
-        url: 'http://t.weather.sojson.com/api/weather/city/101030100',
-        dataType: 'json',
-        success: function (res) {
-
-          for (let j = 0; j < res.result.length; j++) {
-
-          }
-
+      //官方推荐的axios 代替传统ajax
+      this.$axios({
+        method: 'get',
+        url: 'http://47.93.193.61/json/city.json',
+      }).then(res => {
+        for (let i = 0; i < res.data.length; i++) {
+          let obj = {'value': res.data[i].city_name, 'cityCode': res.data[i].city_code}
+          this.cityname.push(obj)
         }
-      })
+      }).catch(error => {
+        console.log(error)
+      }).finally(() => this.loading = false)
     },
+
+    searchCityCode(cityObj) {
+      return cityObj.value === this.state2
+    },
+
     querySearch(queryString, cb) {
       var restaurants = this.restaurants
       var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants
-      // 调用 callback 返回建议列表的数据
+      // 调用 callback回调 返回建议列表的数据
       cb(results)
+      this.cityCode = this.cityname.find(this.searchCityCode).cityCode;
+      console.log(this.cityCode)
     },
+
     createFilter(queryString) {
       return (restaurant) => {
         return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0)
@@ -256,36 +232,35 @@ export default {
       //console.log(item)
     },
 
-
+    //提交登陆信息
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          alert(this.loginForm.username)
-
-          //  登陆信息提交
-          this.$axios({
-            method: 'post',
-            url: '',
-            // data: {
-            //   username: this.loginForm.username,
-            //   pass: this.loginForm.pass,
-            // }
-          }).then(response => {
-            console.log(response)
-          })
-            .catch(error => {
-              console.log(error)
-              alert('无法提交信息')
-            })
-            .finally(() => this.loading = false)
-
-          this.dialogFormVisible = false
-
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
+      this.$router.push('/my')
+      // this.$refs[formName].validate((valid) => {
+      //   if (valid) {
+      //     //  登陆信息提交
+      //     this.$axios({
+      //       method: 'post',
+      //       url: '',
+      //       // data: {
+      //       //   username: this.loginForm.username,
+      //       //   pass: this.loginForm.pass,
+      //       // }
+      //     }).then(response => {
+      //       console.log(response)
+      //     })
+      //       .catch(error => {
+      //         let msg = {title: "提示", message: '无法提交信息', type: "error"};
+      //         this.$notify(msg);
+      //       })
+      //       .finally(() => this.loading = false)
+      //
+      //     this.dialogFormVisible = false
+      //
+      //   } else {
+      //     console.log('error submit!!')
+      //     return false
+      //   }
+      // })
     },
     resetForm(formName) {
       this.$refs[formName].resetFields()

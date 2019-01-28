@@ -18,7 +18,7 @@
           <el-input type="password" v-model="loginForm.pass" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm('loginForm')">提交</el-button>
+          <el-button type="primary" @click="submitForm('loginForm')">登陆</el-button>
           <el-button @click="resetForm('loginForm')">重置</el-button>
         </el-form-item>
       </el-form>
@@ -34,7 +34,7 @@
           风向： {{info.windDirect}} {{info.windLevel}}<br/>
           湿度： {{info.wet}} <br/>
           今日气温：{{info.todayTemp}} <br/>
-          紫外线强度：{{info.uv}}<br/><br/>
+          空气质量：{{info.uv}}<br/><br/>
           <b style="font-size: 16px;">提醒您：{{info.advice}}</b>
         </div>
 

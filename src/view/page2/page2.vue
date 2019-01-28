@@ -5,25 +5,25 @@
     <!--<h1>This is page 2!</h1>-->
 
     <!--<el-card class="box-card card">-->
-      <!--<div class="swiper-container card-container">-->
-        <!--<div class="swiper-wrapper">-->
-          <!--<div class="swiper-slide">-->
-            <!--<div id="slide1">-->
-              <!--第一页-->
-            <!--</div>-->
-          <!--</div>-->
-          <!--<div class="swiper-slide">-->
-            <!--<div id="slide2">-->
-              <!--第二页-->
-            <!--</div>-->
-          <!--</div>-->
-          <!--<div class="swiper-slide">-->
-            <!--<div id="slide3">-->
-              <!--第三页-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
+    <!--<div class="swiper-container card-container">-->
+    <!--<div class="swiper-wrapper">-->
+    <!--<div class="swiper-slide">-->
+    <!--<div id="slide1">-->
+    <!--第一页-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="swiper-slide">-->
+    <!--<div id="slide2">-->
+    <!--第二页-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="swiper-slide">-->
+    <!--<div id="slide3">-->
+    <!--第三页-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
     <!--</el-card>-->
 
     <div id="myChart" :style="{width: '1000px', height: '400px'}"></div>
