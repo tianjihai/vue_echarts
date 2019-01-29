@@ -11,6 +11,8 @@
 
 import CryptoJS from 'crypto-js/crypto-js'
 import 'aes-js/index'
+import topMenu from '../../component/topMenu1'
+import topMenu2 from '../../component/topMenu2'
 
 function encrypt(word) {
   var key = CryptoJS.enc.Utf8.parse('6145986487626488')
@@ -31,7 +33,7 @@ function decrypt(word) {
 
 export default {
   name: 'HelloWorld',
-
+  components: {topMenu,topMenu2},
   data() {
 
     return {

@@ -4,6 +4,8 @@
     <div class="topBar">
       <el-button type="text" @click="dialogVisible = true" class="loginBtn">登陆</el-button>
     </div>
+    <topMenu></topMenu>
+    <topMenu2></topMenu2>
 
     <el-dialog
       title="登陆信息"
